@@ -1,6 +1,15 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { Server } from 'socket.io';
+
+
+const io = new Server(server, {
+  cors: {
+    origin: ['http://localhost:3000', 'https://your-render-url.onrender.com'],
+    methods: ['GET', 'POST']
+  }
+});
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -8,7 +17,7 @@ const port = process.env.PORT || 4000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Serve static files from the React app's dist directory
+// Serve static files from the dist directory
 app.use(express.static(path.join(__dirname, '../dist')));
 
 // Handle any requests that don't match the ones above
