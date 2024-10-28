@@ -46,3 +46,26 @@ button {
 button:hover {
   background-color: #e84118; /* Darker hover effect */
 }
+
+.message {
+  padding: 10px;
+  border-radius: 10px;
+  margin: 5px;
+  width: fit-content;
+  max-width: 70%;
+  overflow-wrap: break-word;
+}
+
+.message.left {
+  background-color: #e0e0e0;
+  color: black;
+  text-align: left;
+  margin-left: auto;
+}
+
+.message.right {
+  background-color: #007bff;
+  color: white;
+  text-align: right;
+  margin-right: auto;
+}
