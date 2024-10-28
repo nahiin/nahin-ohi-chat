@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
@@ -19,4 +18,6 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(4000, () => console.log('Server running on port 4000'));
+// Use the PORT environment variable or default to 4000
+const port = process.env.PORT || 4000;
+server.listen(port, () => console.log(`Server running on port ${port}`));
