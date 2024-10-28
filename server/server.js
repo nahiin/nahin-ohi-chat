@@ -1,15 +1,8 @@
 import express from 'express';
+import http from 'http';
+import { Server } from 'socket.io';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { Server } from 'socket.io';
-
-
-const io = new Server(server, {
-  cors: {
-    origin: ['http://localhost:3000', 'https://nahin-ohi-chat.onrender.com'],
-    methods: ['GET', 'POST']
-  }
-});
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -25,6 +18,27 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist', 'index.html'));
 });
 
-app.listen(port, () => {
+const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: ['http://localhost:3000', 'https://nahin-ohi-chat.onrender.com'],
+    methods: ['GET', 'POST']
+  }
+});
+
+io.on('connection', (socket) => {
+  console.log('New client connected');
+  
+  socket.on('message', (data) => {
+    io.emit('message', data);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+  });
+});
+
+server.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
