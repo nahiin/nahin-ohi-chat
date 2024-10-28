@@ -1,23 +1,22 @@
 import express from 'express';
-import http from 'http';
-import { Server } from 'socket.io';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const app = express();
-const server = http.createServer(app);
-const io = new Server(server);
+const port = process.env.PORT || 4000;
 
-io.on('connection', (socket) => {
-  console.log('New client connected');
-  
-  socket.on('message', (data) => {
-    io.emit('message', data);
-  });
+// Get the directory name
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-  socket.on('disconnect', () => {
-    console.log('Client disconnected');
-  });
+// Serve static files from the React app's build directory
+app.use(express.static(path.join(__dirname, 'build')));
+
+// Handle any requests that don't match the ones above
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-// Use the PORT environment variable or default to 4000
-const port = process.env.PORT || 4000;
-server.listen(port, () => console.log(`Server running on port ${port}`));
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
