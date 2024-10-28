@@ -6,7 +6,7 @@ import { Server } from 'socket.io';
 
 const io = new Server(server, {
   cors: {
-    origin: ['http://localhost:3000', 'https://your-render-url.onrender.com'],
+    origin: ['http://localhost:3000', 'https://nahin-ohi-chat.onrender.com'],
     methods: ['GET', 'POST']
   }
 });
