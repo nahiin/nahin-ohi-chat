@@ -31,11 +31,20 @@ function ChatRoom({ username }) {
     }
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      sendMessage();
+    }
+  };
+
   return (
     <div className="chat-room">
       <div className="messages">
         {messages.map((msg, index) => (
-          <div key={index}>
+          <div
+            key={index}
+            className={`message ${msg.user === username ? 'right' : 'left'}`}
+          >
             <strong>{msg.user}:</strong> {msg.text}
           </div>
         ))}
@@ -44,6 +53,7 @@ function ChatRoom({ username }) {
         type="text"
         value={messageText}
         onChange={(e) => setMessageText(e.target.value)}
+        onKeyPress={handleKeyPress}
         placeholder="Type a message..."
       />
       <button onClick={sendMessage}>Send</button>
