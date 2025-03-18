@@ -6,7 +6,8 @@ const socket = io('https://nahin-ohi-chat.onrender.com');
 function ChatRoom({ username }) {
   const [messages, setMessages] = useState([]);
   const [messageText, setMessageText] = useState('');
-  const messagesEndRef = useRef(null); // To scroll to the bottom when a new message is added
+  const messagesEndRef = useRef(null);
+  const [userColors, setUserColors] = useState({});
 
   useEffect(() => {
     socket.on('connect', () => {
@@ -23,6 +24,15 @@ function ChatRoom({ username }) {
     };
   }, []);
 
+  useEffect(() => {
+    // Assign random colors to users
+    const randomColor = () => `hsl(${Math.random() * 360}, 70%, 60%)`;
+    setUserColors((prevColors) => ({
+      ...prevColors,
+      [username]: randomColor(),
+    }));
+  }, [username]);
+
   const sendMessage = () => {
     if (messageText.trim()) {
       socket.emit('message', { user: username, text: messageText });
@@ -36,7 +46,6 @@ function ChatRoom({ username }) {
     }
   };
 
-  // Scroll to the bottom when a new message is added
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
@@ -44,14 +53,18 @@ function ChatRoom({ username }) {
   return (
     <div className="chat-room">
       <div className="messages">
-        {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`message ${msg.user === username ? 'right' : 'left'}`}
-          >
-            <strong>{msg.user}:</strong> {msg.text}
-          </div>
-        ))}
+        {messages.map((msg, index) => {
+          const bubbleColor = userColors[msg.user] || 'gray'; // Use the color assigned to the user
+          return (
+            <div
+              key={index}
+              className="message"
+              style={{ backgroundColor: bubbleColor, color: 'white' }}
+            >
+              <strong>{msg.user}:</strong> {msg.text}
+            </div>
+          );
+        })}
         <div ref={messagesEndRef} />
       </div>
       <div className="input-area">

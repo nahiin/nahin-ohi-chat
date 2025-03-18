@@ -17,13 +17,13 @@ body {
 }
 
 .App {
-  max-width: 400px;
+  max-width: 600px;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   background-color: white;
-  border-radius: 30px;
+  border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   padding: 20px;
@@ -39,16 +39,21 @@ h1 {
 
 input {
   border: 1px solid #ccc;
-  border-radius: 20px;
-  padding: 10px;
-  font-size: 1em;
+  border-radius: 25px;
+  padding: 12px;
+  font-size: 1.2em;
   width: 100%;
-  margin-bottom: 20px;
   background-color: #fafafa;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+input::placeholder {
+  color: #888;
 }
 
 button {
-  border-radius: 20px;
+  border-radius: 25px;
   border: none;
   padding: 12px 24px;
   font-size: 1.2em;
@@ -57,7 +62,6 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: 100%;
-  margin-bottom: 20px;
 }
 
 button:hover {
@@ -79,36 +83,45 @@ button:focus {
   flex: 1;
   overflow-y: auto;
   margin-bottom: 20px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .message {
-  padding: 10px 15px;
+  padding: 12px 18px;
   border-radius: 20px;
   margin-bottom: 12px;
-  max-width: 80%;
+  max-width: 75%;
+  font-size: 1.1em;
 }
 
-.message.left {
-  background-color: #e5e5ea;
-  margin-left: 10px;
-  text-align: left;
-}
-
-.message.right {
-  background-color: #007aff;
-  color: white;
-  margin-right: 10px;
-  text-align: right;
+.input-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  padding: 12px;
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
 }
 
 input[type="text"] {
   border: 1px solid #ccc;
-  border-radius: 20px;
+  border-radius: 25px;
   padding: 12px;
-  font-size: 1em;
-  width: 100%;
-  margin-bottom: 20px;
+  font-size: 1.2em;
+  width: 80%;
   background-color: #fafafa;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #007aff;
 }
 
 @media (max-width: 600px) {
