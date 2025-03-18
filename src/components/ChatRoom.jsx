@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
-// Connect to the deployed backend service
 const socket = io('https://nahin-ohi-chat.onrender.com');
 
 function ChatRoom({ username }) {
@@ -9,7 +8,6 @@ function ChatRoom({ username }) {
   const [messageText, setMessageText] = useState('');
 
   useEffect(() => {
-    console.log('Connecting to WebSocket...');
     socket.on('connect', () => {
       console.log('Connected to server');
     });
