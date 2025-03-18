@@ -58,7 +58,7 @@ function ChatRoom({ username }) {
           return (
             <div
               key={index}
-              className="message"
+              className={`message ${msg.user === username ? 'right' : 'left'}`}
               style={{ backgroundColor: bubbleColor, color: 'white' }}
             >
               <strong>{msg.user}:</strong> {msg.text}
