@@ -25,7 +25,6 @@ function ChatRoom({ username }) {
   }, []);
 
   useEffect(() => {
-    // Assign random colors to users
     const randomColor = () => `hsl(${Math.random() * 360}, 70%, 60%)`;
     setUserColors((prevColors) => ({
       ...prevColors,
@@ -51,10 +50,11 @@ function ChatRoom({ username }) {
   }, [messages]);
 
   return (
-    <div className="chat-room">
-      <div className="messages">
+    <div className="chat-container">
+      <header className="chat-header">Chat</header>
+      <div className="chat-room">
         {messages.map((msg, index) => {
-          const bubbleColor = userColors[msg.user] || 'gray'; // Use the color assigned to the user
+          const bubbleColor = userColors[msg.user] || '#128c7e';
           return (
             <div
               key={index}
@@ -75,7 +75,7 @@ function ChatRoom({ username }) {
           onKeyPress={handleKeyPress}
           placeholder="Type a message..."
         />
-        <button onClick={sendMessage}>Send</button>
+        <button onClick={sendMessage}>+</button>
       </div>
     </div>
   );
